@@ -1,0 +1,15 @@
+PATIENT: Dana Whitfield          MRN: FAKE-0417
+DATE: 2026-03-14                  PROVIDER: Dr. A. Reyes, MD
+ENCOUNTER: Day-7 post-treatment follow-up
+CC: Routine protocol check-in
+
+S: Pt reports feeling well. No new complaints. Sleep improved
+   over past week. Denies HA, nausea, inj-site discomfort.
+
+O: Vitals WNL. BP 118/74, HR 68, afeb. Inj site clean, no
+   erythema or induration.
+
+A: Tolerating protocol well at day 7. No adverse effects noted.
+
+P: - Continue current peptide regimen, no changes.
+   - RTC day-30 for scheduled review.
