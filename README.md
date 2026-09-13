@@ -1,8 +1,8 @@
 # iksa.ai.task
 
 Work-sample project. See [DECISION.md](DECISION.md) for the scope decision
-and [issue #1](../../issues/1) for the acceptance criteria this build
-targets.
+and [issue #1](https://github.com/ADEGBITE-Oluwapelumi/iksa.ai.task/issues/1)
+for the acceptance criteria this build targets.
 
 ## What this is
 
