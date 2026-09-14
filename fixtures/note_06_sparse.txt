@@ -1,0 +1,5 @@
+PATIENT: R. Kim                   MRN: FAKE-3301
+DATE: 2026-03-14                  PROVIDER: Dr. A. Reyes, MD
+
+d1 post-tx. stable. no c/o.
+cont tx. rtc prn.

@@ -1,0 +1,23 @@
+PATIENT: Priya Nandakumar         MRN: FAKE-0863
+DATE: 2026-03-14                   PROVIDER: Dr. A. Reyes, MD
+ENCOUNTER: Day-1 post-treatment follow-up
+CC: Initiation of hormone + peptide protocol; safety counseling
+
+S: Pt anxious re: possible side effects; counseled and reassured.
+   No current symptoms.
+
+O: Stable. BP 120/76, HR 70. Inj sites unremarkable.
+
+A: Day-1 post-initiation. Appropriate for outpatient monitoring
+   with clear return precautions.
+
+P: - Continue protocol as prescribed.
+   - RETURN PRECAUTIONS — counseled patient: go to the ER
+     immediately, do not wait for clinic, if any of the following:
+       * sudden shortness of breath
+       * chest pain
+       * swelling, pain, warmth, or redness in one leg
+   - Call clinic during hours for: persistent headache not relieved
+     by usual measures, or signs of injection-site infection
+     (spreading redness, warmth, pus, fever).
+   - RTC day-7.

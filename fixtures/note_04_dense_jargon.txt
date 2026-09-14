@@ -1,0 +1,19 @@
+PATIENT: Gregory Ohta             MRN: FAKE-2098
+DATE: 2026-03-14                  PROVIDER: Dr. A. Reyes, MD
+ENCOUNTER: Day-30 metabolic protocol review
+CC: Interval labs and protocol reassessment
+
+S: Asymptomatic. Reports good adherence to nutrition and training
+   plan. No complaints.
+
+O: Fasting insulin decreased. HOMA-IR improved 3.1 -> 1.9.
+   HbA1c 5.4%. hsCRP trending down (suggests reduced systemic
+   inflammation). Lipid panel: LDL-P decreased, HDL stable.
+
+A: Favorable metabolic response with improved insulin sensitivity
+   at day 30. Inflammatory markers improving.
+
+P: - Continue metformin 500 mg PO BID.
+   - Reinforce continued caloric periodization and resistance
+     training.
+   - RTC 90d with repeat labs.

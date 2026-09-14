@@ -1,0 +1,15 @@
+PATIENT: Helen Vasquez            MRN: FAKE-0555
+DATE: 2026-03-14                  PROVIDER: Dr. A. Reyes, MD
+ENCOUNTER: Day-7 post-treatment follow-up
+CC: Mild GI symptom since starting regimen
+
+S: Reports "some stomach upset" since starting the new regimen.
+   No vomiting. Appetite ok. No fever.
+
+O: Abdomen soft, non-tender. Vitals WNL.
+
+A: Likely GI adjustment to therapy. No red flags at this time.
+
+P: - Continue current regimen unchanged.
+   - Monitor symptoms.
+   - F/U day-30 (sooner if worsening).

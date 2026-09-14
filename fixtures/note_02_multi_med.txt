@@ -1,0 +1,19 @@
+PATIENT: Marcus Ellery           MRN: FAKE-1120
+DATE: 2026-03-14                  PROVIDER: Dr. A. Reyes, MD
+ENCOUNTER: Day-1 post-treatment follow-up
+CC: Post-infusion check, medication reconciliation
+
+S: Tolerated infusion well. Mild fatigue x1 day, self-resolved.
+   No GI upset. Adherent to oral meds.
+
+O: BP 122/78, HR 72, afeb. Well hydrated. No acute distress.
+
+A: Day-1 status stable. Metabolic + supplementation protocol
+   ongoing.
+
+P: - Semaglutide 0.5 mg SC weekly; titrate to 1 mg weekly after
+     4 weeks if tolerated.
+   - NAD+ IV 500 mg, monthly.
+   - Vitamin D3 5000 IU PO daily.
+   - Continue magnesium glycinate 400 mg PO qHS.
+   - RTC 30d for titration review.
