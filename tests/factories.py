@@ -9,9 +9,10 @@ fixture notes wrap lines mid-quote, so this avoids spans that are subtly
 wrong.
 """
 
-from typing import Optional
+from typing import List, Optional
 
 from service.models import ClaimType, ClinicalClaim, EvidenceSpan, SummarizerOutput
+from service.note_parsing import extract_patient_first_name
 
 
 def find_span(note_text: str, start_marker: str, end_marker: Optional[str] = None) -> EvidenceSpan:
@@ -23,8 +24,19 @@ def find_span(note_text: str, start_marker: str, end_marker: Optional[str] = Non
     return EvidenceSpan(start=start, end=end, quote=note_text[start:end])
 
 
-def _assemble_draft(claims) -> str:
-    return " ".join(claim.text for claim in claims)
+def _assemble_draft(note_text: str, claims: List[ClinicalClaim]) -> str:
+    """Join claim text into a draft, prefixed with a conversational greeting.
+
+    The greeting is plain connective prose, not a clinical claim — it has no
+    evidence span and doesn't belong in evidence_map, same as any other
+    non-clinical filler (see service/models.py's design note).
+    """
+    parts = []
+    name = extract_patient_first_name(note_text)
+    if name:
+        parts.append(f"Hi {name}, here's a quick summary from your visit.")
+    parts.extend(claim.text for claim in claims)
+    return " ".join(parts)
 
 
 # ---------------------------------------------------------------------------
@@ -49,7 +61,7 @@ def clean_output_note_01(note_text: str) -> SummarizerOutput:
             evidence=find_span(note_text, "RTC day-30 for scheduled review."),
         ),
     ]
-    return SummarizerOutput(draft_summary=_assemble_draft(claims), claims=claims)
+    return SummarizerOutput(draft_summary=_assemble_draft(note_text, claims), claims=claims)
 
 
 # ---------------------------------------------------------------------------
@@ -109,7 +121,7 @@ def clean_output_note_02(note_text: str) -> SummarizerOutput:
             evidence=find_span(note_text, "RTC 30d for titration review."),
         ),
     ]
-    return SummarizerOutput(draft_summary=_assemble_draft(claims), claims=claims)
+    return SummarizerOutput(draft_summary=_assemble_draft(note_text, claims), claims=claims)
 
 
 def invented_dose_output_note_02(note_text: str) -> SummarizerOutput:
@@ -125,7 +137,7 @@ def invented_dose_output_note_02(note_text: str) -> SummarizerOutput:
         dose="2 mg",
         frequency="weekly",
     )
-    output.draft_summary = _assemble_draft(output.claims)
+    output.draft_summary = _assemble_draft(note_text, output.claims)
     return output
 
 
@@ -145,7 +157,7 @@ def invented_medication_output_note_02(note_text: str) -> SummarizerOutput:
         frequency="as needed",
     )
     output.claims = output.claims + [fabricated]
-    output.draft_summary = _assemble_draft(output.claims)
+    output.draft_summary = _assemble_draft(note_text, output.claims)
     return output
 
 
@@ -192,7 +204,7 @@ def clean_output_note_03(note_text: str) -> SummarizerOutput:
             evidence=find_span(note_text, "RTC day-7."),
         ),
     ]
-    return SummarizerOutput(draft_summary=_assemble_draft(claims), claims=claims)
+    return SummarizerOutput(draft_summary=_assemble_draft(note_text, claims), claims=claims)
 
 
 def dropped_red_flag_output_note_03(note_text: str) -> SummarizerOutput:
@@ -201,7 +213,7 @@ def dropped_red_flag_output_note_03(note_text: str) -> SummarizerOutput:
     """
     output = clean_output_note_03(note_text)
     output.claims = [c for c in output.claims if c.claim_type != ClaimType.RED_FLAG or "ER" not in c.text]
-    output.draft_summary = _assemble_draft(output.claims)
+    output.draft_summary = _assemble_draft(note_text, output.claims)
     return output
 
 
@@ -221,7 +233,7 @@ def downgraded_red_flag_output_note_03(note_text: str) -> SummarizerOutput:
                 claim_type=ClaimType.RED_FLAG,
                 evidence=claim.evidence,
             )
-    output.draft_summary = _assemble_draft(output.claims)
+    output.draft_summary = _assemble_draft(note_text, output.claims)
     return output
 
 
@@ -271,7 +283,7 @@ def clean_output_note_04(note_text: str) -> SummarizerOutput:
             evidence=find_span(note_text, "RTC 90d with repeat labs."),
         ),
     ]
-    return SummarizerOutput(draft_summary=_assemble_draft(claims), claims=claims)
+    return SummarizerOutput(draft_summary=_assemble_draft(note_text, claims), claims=claims)
 
 
 def jargon_output_note_04(note_text: str) -> SummarizerOutput:
@@ -312,7 +324,7 @@ def clean_output_note_05(note_text: str) -> SummarizerOutput:
             evidence=find_span(note_text, "F/U day-30 (sooner if worsening)."),
         ),
     ]
-    return SummarizerOutput(draft_summary=_assemble_draft(claims), claims=claims)
+    return SummarizerOutput(draft_summary=_assemble_draft(note_text, claims), claims=claims)
 
 
 def unmapped_advice_output_note_05(note_text: str) -> SummarizerOutput:
@@ -328,5 +340,5 @@ def unmapped_advice_output_note_05(note_text: str) -> SummarizerOutput:
         evidence=None,
     )
     output.claims = output.claims + [fabricated]
-    output.draft_summary = _assemble_draft(output.claims)
+    output.draft_summary = _assemble_draft(note_text, output.claims)
     return output

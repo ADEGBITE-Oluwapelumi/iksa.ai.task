@@ -77,6 +77,19 @@ def test_metadata_includes_timing_measurement(note_01_text):
     assert payload["metadata"]["timing_ms"] >= 0
 
 
+def test_draft_opens_with_patient_greeting_and_greeting_is_not_a_claim(note_02_text):
+    """The greeting is conversational filler, not a clinical claim — it must
+    not appear in evidence_map, and must not trip evidence_trail (which
+    would fail if it were treated as an unmapped clinical claim).
+    """
+    summarizer = StubSummarizer(factories.clean_output_note_02(note_02_text))
+    payload = generate_summary(note_02_text, summarizer)
+
+    assert payload["draft_summary"].startswith("Hi Marcus,")
+    assert all("Hi Marcus" not in claim["text"] for claim in payload["evidence_map"])
+    assert payload["metadata"]["release_ready"] is True
+
+
 def test_all_clean_fixtures_pass(note_01_text, note_02_text, note_03_text, note_05_text):
     cases = [
         (note_01_text, factories.clean_output_note_01),

@@ -17,6 +17,7 @@ from openai import OpenAI
 
 from service import config
 from service.models import ClaimType, ClinicalClaim, EvidenceSpan, SummarizerOutput
+from service.note_parsing import extract_patient_first_name
 from service.summarizer.base import Summarizer
 
 SYSTEM_PROMPT = """You turn a physician's clinical note into a patient-facing, \
@@ -102,11 +103,21 @@ class GitHubModelsSummarizer(Summarizer):
         )
 
     def summarize(self, note_text: str) -> SummarizerOutput:
+        user_content = note_text
+        patient_first_name = extract_patient_first_name(note_text)
+        if patient_first_name:
+            user_content += (
+                f"\n\n(The patient's first name is {patient_first_name}. Open "
+                f"draft_summary with a brief, warm greeting using this name, "
+                f"e.g. 'Hi {patient_first_name}, ...'. The greeting itself is "
+                f"not a clinical claim and needs no source_quote.)"
+            )
+
         response = self._client.chat.completions.create(
             model=config.GITHUB_MODELS_MODEL,
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": note_text},
+                {"role": "user", "content": user_content},
             ],
             response_format={"type": "json_object"},
             temperature=0,
