@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Minimal manual harness: run the real GitHub Models summarizer against a
-note file and print the resulting payload. Not used by tests or CI — needs
-GITHUB_MODELS_TOKEN set (see .env.example).
+"""Minimal manual harness: run the real (OpenAI-compatible) summarizer
+against a note file and print the resulting payload. Not used by tests or
+CI — needs LLM_API_KEY set (see .env.example).
 
 Usage:
     python scripts/live_demo.py fixtures/note_02_multi_med.txt
@@ -14,7 +14,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from service.orchestrator import generate_summary
-from service.summarizer.github_models import GitHubModelsSummarizer
+from service.summarizer.openai_compatible import OpenAICompatibleSummarizer
 
 
 def main() -> None:
@@ -23,7 +23,7 @@ def main() -> None:
         sys.exit(1)
 
     note_text = Path(sys.argv[1]).read_text()
-    summarizer = GitHubModelsSummarizer()
+    summarizer = OpenAICompatibleSummarizer()
     payload = generate_summary(note_text, summarizer)
     print(json.dumps(payload, indent=2))
 

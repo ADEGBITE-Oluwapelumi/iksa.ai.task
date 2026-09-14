@@ -1,8 +1,8 @@
 """Configuration loaded from environment variables — never hardcoded.
 
-Swapping GitHub Models (free/prototyping) for an org's own OpenAI-compatible
-endpoint in production is a config change (base_url + api_key + model), not
-a code change.
+Swapping providers (currently Groq, free-tier) for an org's own
+OpenAI-compatible endpoint in production is a config change (LLM_BASE_URL +
+LLM_API_KEY + LLM_MODEL), not a code change.
 """
 
 import os
@@ -16,10 +16,8 @@ except ImportError:
     # need it, so its absence must not break anything.
     pass
 
-GITHUB_MODELS_BASE_URL = os.environ.get(
-    "GITHUB_MODELS_BASE_URL", "https://models.github.ai/inference"
-)
-GITHUB_MODELS_TOKEN = os.environ.get("GITHUB_MODELS_TOKEN")
-GITHUB_MODELS_MODEL = os.environ.get("GITHUB_MODELS_MODEL", "openai/gpt-4o-mini")
+LLM_BASE_URL = os.environ.get("LLM_BASE_URL", "https://api.groq.com/openai/v1")
+LLM_API_KEY = os.environ.get("LLM_API_KEY")
+LLM_MODEL = os.environ.get("LLM_MODEL", "openai/gpt-oss-120b")
 
 READING_LEVEL_MAX_GRADE = float(os.environ.get("READING_LEVEL_MAX_GRADE", "6"))

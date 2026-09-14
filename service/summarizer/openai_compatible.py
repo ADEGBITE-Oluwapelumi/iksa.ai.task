@@ -1,13 +1,13 @@
-"""The real implementation: GitHub Models (OpenAI-SDK compatible).
+"""The real implementation: any OpenAI-compatible chat-completions endpoint.
 
-GitHub Models (https://models.github.ai/inference) is free/prototyping-only
-and rate-limited. In production this would be swapped for the org's own
-OpenAI-compatible endpoint by changing GITHUB_MODELS_BASE_URL /
-GITHUB_MODELS_TOKEN / GITHUB_MODELS_MODEL in config — no code change.
+Not tied to one provider — configured entirely via LLM_BASE_URL / LLM_API_KEY
+/ LLM_MODEL (service/config.py). .env.example ships Groq's free-tier values
+as the default for prototyping; production would point this at the org's own
+OpenAI-compatible endpoint by changing those three values — no code change.
 
 This class is used only by scripts/live_demo.py for manual runs. It is never
 imported by the test suite: tests must not call a live model or require a
-token.
+key.
 """
 
 import json
@@ -88,18 +88,18 @@ def _resolve_span(note_text: str, quote: Optional[str]) -> Optional[EvidenceSpan
     return EvidenceSpan(start=real_start, end=real_end, quote=note_text[real_start:real_end])
 
 
-class GitHubModelsSummarizer(Summarizer):
-    name = "github-models"
+class OpenAICompatibleSummarizer(Summarizer):
+    name = "openai-compatible"
 
     def __init__(self) -> None:
-        if not config.GITHUB_MODELS_TOKEN:
+        if not config.LLM_API_KEY:
             raise RuntimeError(
-                "GITHUB_MODELS_TOKEN is not set. Copy .env.example to .env and "
-                "fill in a GitHub PAT with the 'models' permission."
+                "LLM_API_KEY is not set. Copy .env.example to .env and fill in "
+                "an API key for your chosen provider."
             )
         self._client = OpenAI(
-            base_url=config.GITHUB_MODELS_BASE_URL,
-            api_key=config.GITHUB_MODELS_TOKEN,
+            base_url=config.LLM_BASE_URL,
+            api_key=config.LLM_API_KEY,
         )
 
     def summarize(self, note_text: str) -> SummarizerOutput:
@@ -114,7 +114,7 @@ class GitHubModelsSummarizer(Summarizer):
             )
 
         response = self._client.chat.completions.create(
-            model=config.GITHUB_MODELS_MODEL,
+            model=config.LLM_MODEL,
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": user_content},
