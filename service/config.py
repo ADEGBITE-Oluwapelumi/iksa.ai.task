@@ -22,4 +22,4 @@ GITHUB_MODELS_BASE_URL = os.environ.get(
 GITHUB_MODELS_TOKEN = os.environ.get("GITHUB_MODELS_TOKEN")
 GITHUB_MODELS_MODEL = os.environ.get("GITHUB_MODELS_MODEL", "openai/gpt-4o-mini")
 
-READING_LEVEL_MAX_GRADE = float(os.environ.get("READING_LEVEL_MAX_GRADE", "8"))
+READING_LEVEL_MAX_GRADE = float(os.environ.get("READING_LEVEL_MAX_GRADE", "6"))

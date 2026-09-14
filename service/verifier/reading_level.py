@@ -1,28 +1,22 @@
 """Acceptance criterion 5 — reading level.
 
 Uses `textstat` (a well-maintained readability library) rather than
-hand-rolling the Flesch-Kincaid formula. The max grade is configured via
-READING_LEVEL_MAX_GRADE (service/config.py) — issue #1 originally set this
-at 6 (NIH/AMA/HHS patient-materials guidance); it was raised to 8 after live
-testing against a real model showed its non-red-flag prose reliably landed
-around grade 7-8 on realistic notes.
+hand-rolling the Flesch-Kincaid formula.
 
 Priority rule (deliberate safety decision): red-flag / safety-critical
-claims are EXEMPT from this gate entirely, at any configured grade.
-Retention and urgency for that content is enforced separately, and
-completely, by service/verifier/red_flag.py — that check has no
-reading-level ceiling of its own. We do not simplify emergency instructions
-below completeness to hit a readability number. Concretely: this check
-computes the grade on the non-red-flag claims only ("the body"), never on
-red-flag claim text.
+claims are EXEMPT from the grade-6 gate. Retention and urgency for that
+content is enforced separately, and completely, by
+service/verifier/red_flag.py — that check has no reading-level ceiling of
+its own. We do not simplify emergency instructions below completeness to
+hit a readability number. Concretely: this check computes the grade on the
+non-red-flag claims only ("the body"), never on red-flag claim text.
 
 This rule exists because of a real regression: an early draft of the
-note_03 ER instruction was reworded to hit the (then grade-6) reading-level
-target and, in the process, silently dropped a listed leg symptom and
-softened "immediately" / "do not wait for clinic". Criteria 4 (retention)
-and 5 (reading level) can conflict, and prior to this rule the system had
-no way to say which one wins. Now it does: retention always wins for
-red-flag content, regardless of what the numeric threshold is set to.
+note_03 ER instruction was reworded to hit grade 6 and, in the process,
+silently dropped a listed leg symptom and softened "immediately" / "do not
+wait for clinic". Criteria 4 (retention) and 5 (reading level) can conflict,
+and prior to this rule the system had no way to say which one wins. Now it
+does: retention always wins for red-flag content.
 """
 
 import textstat
