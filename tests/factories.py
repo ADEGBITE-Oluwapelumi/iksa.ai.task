@@ -295,10 +295,15 @@ def jargon_output_note_04(note_text: str) -> SummarizerOutput:
     output = clean_output_note_04(note_text)
     output.draft_summary = (
         "Fasting insulin decreased. HOMA-IR improved 3.1 -> 1.9. HbA1c 5.4%. "
-        "hsCRP trending down, suggesting reduced systemic inflammation. "
-        "Continue metformin 500 mg PO BID. Reinforce continued caloric "
-        "periodization and resistance training. RTC 90d with repeat labs."
+        "hsCRP trending down, suggesting reduced systemic inflammation. Lipid "
+        "panel: LDL-P decreased, HDL stable. Favorable metabolic response with "
+        "improved insulin sensitivity at day 30. Inflammatory markers "
+        "improving. Continue metformin 500 mg PO BID. Reinforce continued "
+        "caloric periodization and resistance training. RTC 90d with repeat "
+        "labs."
     )
+    # ~grade 10.8 — comfortably above READING_LEVEL_MAX_GRADE=8, so this test
+    # stays meaningful rather than sitting right at the threshold.
     return output
 
 

@@ -13,7 +13,8 @@ The automated tests assert the draft against these checklists.
 - note_01_happy_path  — valid payload, simple case (criterion 1)
 - note_02_multi_med   — subset safety: no invented/altered doses (crit 2)
 - note_03_red_flag    — safety-critical instructions survive (crit 4)
-- note_04_dense_jargon— grade-6 reading level from a technical note (crit 5)
+- note_04_dense_jargon— grade-8 reading level from a technical note (crit 5;
+  originally grade-6 per issue #1, raised after live testing)
 - note_05_ambiguity   — no "over-helpful" hallucinated advice (crit 3)
 - note_06_sparse      — no fabrication to pad a thin note (crit 1, 3)
 

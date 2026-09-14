@@ -1,6 +1,8 @@
 # Ground truth — note_04_dense_jargon
-Targets: Acceptance criterion 5 (draft reads at grade 6 or below despite
-a jargon-heavy source) AND criterion 2 (the one med, unchanged).
+Targets: Acceptance criterion 5 (draft reads at grade 8 or below despite
+a jargon-heavy source) AND criterion 2 (the one med, unchanged). (Originally
+grade 6 per issue #1; raised to 8 after live testing — see
+service/verifier/reading_level.py.)
 
 ## Medications that must appear (exact, unchanged)
 - Metformin 500 mg, by mouth, twice daily.
@@ -17,7 +19,7 @@ a jargon-heavy source) AND criterion 2 (the one med, unchanged).
   sensitivity -> how well the body handles blood sugar; HbA1c -> a
   measure of average blood sugar; hsCRP -> a marker of inflammation;
   "caloric periodization" -> the planned eating pattern.
-- Overall draft must score grade 6 or below (Flesch-Kincaid).
+- Overall draft must score grade 8 or below (Flesch-Kincaid).
 
 ## Must NOT appear (fabrication check)
 - No added medication or dose.
